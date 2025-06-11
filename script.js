@@ -39,7 +39,7 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Intersection Observer for animations
+// Simplified intersection observer for subtle effects
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
@@ -49,19 +49,17 @@ const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
         }
     });
 }, observerOptions);
 
-// Observe elements for animation
+// Minimal fade-in animation
 document.addEventListener('DOMContentLoaded', () => {
-    const animatedElements = document.querySelectorAll('.skill-card, .social-link, .platform-link');
+    const animatedElements = document.querySelectorAll('.skill-card, .article-item');
     
     animatedElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        el.style.opacity = '0.8';
+        el.style.transition = 'opacity 0.3s ease';
         observer.observe(el);
     });
 });
@@ -140,41 +138,13 @@ const createScrollButton = () => {
 // Initialize scroll button
 document.addEventListener('DOMContentLoaded', createScrollButton);
 
-// Add hover effects to skill cards
+// Minimal hover effects
 document.addEventListener('DOMContentLoaded', () => {
     const skillCards = document.querySelectorAll('.skill-card');
     
     skillCards.forEach(card => {
-        card.addEventListener('mouseenter', () => {
-            card.style.transform = 'translateY(-10px) scale(1.02)';
-        });
-        
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'translateY(0) scale(1)';
-        });
+        card.style.transition = 'border-color 0.2s ease';
     });
 });
 
-// Add typing effect to hero title (optional enhancement)
-const typeWriter = (element, text, speed = 100) => {
-    let i = 0;
-    element.innerHTML = '';
-    
-    const timer = setInterval(() => {
-        if (i < text.length) {
-            element.innerHTML += text.charAt(i);
-            i++;
-        } else {
-            clearInterval(timer);
-        }
-    }, speed);
-};
-
-// Initialize typing effect (uncomment to enable)
-// document.addEventListener('DOMContentLoaded', () => {
-//     const heroTitle = document.querySelector('.hero-title');
-//     if (heroTitle) {
-//         const text = heroTitle.textContent;
-//         typeWriter(heroTitle, text, 150);
-//     }
-// });
+// Clean, minimal JavaScript - removed typing effect for simplicity
