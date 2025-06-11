@@ -1,4 +1,4 @@
-name: Update Latest Substack Article
+name: Update Latest Substack Articles
 
 on:
   schedule:
@@ -12,33 +12,62 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Fetch latest Substack post
+      - name: Fetch latest 5 Substack posts
         id: substack
         run: |
-          RSS_URL="https://substack.com/feed/@peterlimg"
-          ARTICLE=$(curl -s "$RSS_URL" | grep -oPm1 "(?<=<item>)[\s\S]*?(?=</item>)")
-          TITLE=$(echo "$ARTICLE" | grep -oPm1 "(?<=<title>)[^<]+")
-          LINK=$(echo "$ARTICLE" | grep -oPm1 "(?<=<link>)[^<]+")
-          echo "title=$TITLE" >> $GITHUB_OUTPUT
-          echo "link=$LINK" >> $GITHUB_OUTPUT
+          RSS_URL="https://peterlimg.substack.com/feed"
+          ARTICLES=$(curl -s "$RSS_URL" | grep -oP '(?<=<item>)[\s\S]*?(?=</item>)' | head -5)
+          
+          # Initialize output file
+          echo "articles<<EOF" >> $GITHUB_OUTPUT
+          
+          i=1
+          while IFS= read -r article; do
+            if [ $i -le 5 ]; then
+              TITLE=$(echo "$article" | grep -oP '(?<=<title><!\[CDATA\[)[^]]*(?=\]\]>)' || echo "$article" | grep -oP '(?<=<title>)[^<]*')
+              LINK=$(echo "$article" | grep -oP '(?<=<link>)[^<]*')
+              PUBDATE=$(echo "$article" | grep -oP '(?<=<pubDate>)[^<]*')
+              
+              # Convert date format (optional, keeping simple format)
+              FORMATTED_DATE=$(date -d "$PUBDATE" "+%B %d, %Y" 2>/dev/null || echo "$PUBDATE")
+              
+              echo "- [$TITLE]($LINK) - *$FORMATTED_DATE*" >> $GITHUB_OUTPUT
+              i=$((i+1))
+            fi
+          done <<< "$ARTICLES"
+          
+          echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Update README
         run: |
           START="<!-- SUBSTACK:START -->"
           END="<!-- SUBSTACK:END -->"
-          NEW="- [${{ steps.substack.outputs.title }}](${{ steps.substack.outputs.link }})"
-
-          awk -v start="$START" -v end="$END" -v new="$NEW" '
+          
+          # Create temporary file with new content
+          awk -v start="$START" -v end="$END" '
             BEGIN {found=0}
             {
-              if(index($0, start)) {found=1; print; print new; next}
-              if(index($0, end)) {found=0}
+              if(index($0, start)) {
+                found=1
+                print
+                next
+              }
+              if(index($0, end)) {
+                found=0
+                print
+                next
+              }
               if(!found) print
             }
-          ' README.md > README.tmp && mv README.tmp README.md
+          ' README.md > README.tmp
+          
+          # Insert the articles between the markers
+          sed -i "/<!-- SUBSTACK:START -->/r /dev/stdin" README.tmp <<< "${{ steps.substack.outputs.articles }}"
+          
+          mv README.tmp README.md
 
       - name: Commit and Push changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Update latest Substack article in README"
+          commit_message: "Update latest Substack articles in README"
           file_pattern: README.md
