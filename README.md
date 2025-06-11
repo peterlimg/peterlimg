@@ -31,16 +31,16 @@
 ### 🌎 Connect with Me
 
 [![LinkedIn](https://img.shields.io/badge/-LinkedIn-blue?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/peterm08/)
-[![Medium](https://img.shields.io/badge/-Medium-black?logo=medium&logoColor=white)](https://medium.com/@luxairlake)
 [![Substack](https://img.shields.io/badge/-Substack-orange?logo=substack&logoColor=white)](https://substack.com/@peterlimg)
+[![Medium](https://img.shields.io/badge/-Medium-black?logo=medium&logoColor=white)](https://medium.com/@luxairlake)
 [![Twitter/X](https://img.shields.io/badge/-X-black?logo=twitter&logoColor=white)](https://x.com/erodoe16)
 
 ---
 
 ### 📚 Latest Writings
 
-- [Medium](https://medium.com/@luxairlake)
 - [Substack](https://substack.com/@peterlimg)
+- [Medium](https://medium.com/@luxairlake)
 
 #### 📰 Latest on Substack
 
