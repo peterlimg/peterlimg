@@ -1,9 +1,11 @@
 # Hi, I’m Peter 👋
 
+**Former VP of Engineering | Indie Builder | Solopreneur**  
 **Tech Lead / Architect** | **Go (Golang)** | **AWS** | **Docker** | **Kubernetes**  
-**Blockchain, Distributed & Cloud-Native Systems Enthusiast**  
+**Distributed & Cloud-Native Systems Enthusiast**  
+
 🧑‍💻 10+ years building with Go and leading cloud engineering teams  
-**Former VP of Engineering | Indie Builder | Solopreneur**
+
 
 ---
 
