@@ -20,36 +20,37 @@ jobs:
         run: |
           RSS_URL="https://peterlimg.substack.com/feed"
           
-          # Download RSS feed
-          curl -s -A "Mozilla/5.0 (compatible; RSS Reader)" "$RSS_URL" > feed.xml
-          
-          # Parse RSS using Python with proper XML handling
+          # Use a more robust approach with xmllint for XML cleanup
+          curl -s -A "Mozilla/5.0 (compatible; RSS Reader)" "$RSS_URL" | \
           python3 -c "
-          import xml.etree.ElementTree as ET
-          from datetime import datetime
+          import sys
           import re
+          from datetime import datetime
           
-          # Parse XML from file
-          tree = ET.parse('feed.xml')
-          root = tree.getroot()
+          # Read raw RSS content
+          content = sys.stdin.read()
           
-          # Find all items (handle namespaces)
-          items = root.findall('.//item')[:5]
+          # Extract items using regex (more reliable than XML parsing for malformed feeds)
+          item_pattern = r'<item>(.*?)</item>'
+          items = re.findall(item_pattern, content, re.DOTALL)[:5]
           
           with open('articles.txt', 'w') as f:
               for item in items:
-                  title_elem = item.find('title')
-                  link_elem = item.find('link')
-                  pubdate_elem = item.find('pubDate')
+                  # Extract title
+                  title_match = re.search(r'<title><!\[CDATA\[(.*?)\]\]></title>', item)
+                  if not title_match:
+                      title_match = re.search(r'<title>(.*?)</title>', item)
                   
-                  if title_elem is not None and link_elem is not None:
-                      # Extract title, handling CDATA
-                      title = title_elem.text or ''
-                      if title.startswith('<![CDATA[') and title.endswith(']]>'):
-                          title = title[9:-3]
-                      
-                      link = link_elem.text or ''
-                      pubdate = pubdate_elem.text or '' if pubdate_elem is not None else ''
+                  # Extract link
+                  link_match = re.search(r'<link>(.*?)</link>', item)
+                  
+                  # Extract pubDate
+                  pubdate_match = re.search(r'<pubDate>(.*?)</pubDate>', item)
+                  
+                  if title_match and link_match:
+                      title = title_match.group(1).strip()
+                      link = link_match.group(1).strip()
+                      pubdate = pubdate_match.group(1).strip() if pubdate_match else ''
                       
                       # Format date
                       try:
@@ -62,9 +63,6 @@ jobs:
                       
                       f.write(f'- [{title}]({link}) - *{formatted_date}*\n')
           "
-          
-          # Clean up
-          rm -f feed.xml
 
       - name: Update README
         run: |
