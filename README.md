@@ -47,11 +47,6 @@
 #### 📰 Latest on Substack
 
 <!-- SUBSTACK:START -->
-- [The Architecture Migration That Nobody Sees](https://peterlimg.substack.com/p/the-architecture-migration-that-nobody) - *June 10, 2025*
-- [From Prototype to Product: Adding Multi-Tenant Architecture](https://peterlimg.substack.com/p/from-prototype-to-product-adding) - *June 9, 2025*
-- [Building an AI-Native FinOps System: From AWS Data Chaos to Cost Optimization](https://peterlimg.substack.com/p/building-an-ai-native-finops-system) - *June 8, 2025*
-- [TDD with Vibe Coding: Why This Combo Rules the AI Development Era](https://peterlimg.substack.com/p/tdd-with-vibe-coding-why-this-combo) - *June 8, 2025*
-- [Building in Public Day 27: Why I Made FinOps Recommendations Look Like GitHub Issues](https://peterlimg.substack.com/p/building-in-public-day-27-why-i-made) - *June 6, 2025*
 <!-- SUBSTACK:END -->
 
 ---
