@@ -19,24 +19,52 @@ jobs:
       - name: Fetch latest 5 Substack posts
         run: |
           RSS_URL="https://peterlimg.substack.com/feed"
-          ARTICLES=$(curl -s "$RSS_URL" | grep -oP '(?<=<item>)[\s\S]*?(?=</item>)' | head -5)
           
-          # Create articles content and write to file
-          > articles.txt
-          i=1
-          while IFS= read -r article; do
-            if [ $i -le 5 ]; then
-              TITLE=$(echo "$article" | grep -oP '(?<=<title><!\[CDATA\[)[^]]*(?=\]\]>)' || echo "$article" | grep -oP '(?<=<title>)[^<]*')
-              LINK=$(echo "$article" | grep -oP '(?<=<link>)[^<]*')
-              PUBDATE=$(echo "$article" | grep -oP '(?<=<pubDate>)[^<]*')
-              
-              # Convert date format (optional, keeping simple format)
-              FORMATTED_DATE=$(date -d "$PUBDATE" "+%B %d, %Y" 2>/dev/null || echo "$PUBDATE")
-              
-              echo "- [$TITLE]($LINK) - *$FORMATTED_DATE*" >> articles.txt
-              i=$((i+1))
-            fi
-          done <<< "$ARTICLES"
+          # Download RSS feed
+          curl -s -A "Mozilla/5.0 (compatible; RSS Reader)" "$RSS_URL" > feed.xml
+          
+          # Parse RSS using Python with proper XML handling
+          python3 -c "
+          import xml.etree.ElementTree as ET
+          from datetime import datetime
+          import re
+          
+          # Parse XML from file
+          tree = ET.parse('feed.xml')
+          root = tree.getroot()
+          
+          # Find all items (handle namespaces)
+          items = root.findall('.//item')[:5]
+          
+          with open('articles.txt', 'w') as f:
+              for item in items:
+                  title_elem = item.find('title')
+                  link_elem = item.find('link')
+                  pubdate_elem = item.find('pubDate')
+                  
+                  if title_elem is not None and link_elem is not None:
+                      # Extract title, handling CDATA
+                      title = title_elem.text or ''
+                      if title.startswith('<![CDATA[') and title.endswith(']]>'):
+                          title = title[9:-3]
+                      
+                      link = link_elem.text or ''
+                      pubdate = pubdate_elem.text or '' if pubdate_elem is not None else ''
+                      
+                      # Format date
+                      try:
+                          # Remove timezone info for parsing
+                          date_str = re.sub(r' [A-Z]{3}$', '', pubdate)
+                          date_obj = datetime.strptime(date_str, '%a, %d %b %Y %H:%M:%S')
+                          formatted_date = date_obj.strftime('%B %d, %Y')
+                      except:
+                          formatted_date = pubdate
+                      
+                      f.write(f'- [{title}]({link}) - *{formatted_date}*\n')
+          "
+          
+          # Clean up
+          rm -f feed.xml
 
       - name: Update README
         run: |
