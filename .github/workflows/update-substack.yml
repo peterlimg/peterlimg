@@ -3,7 +3,11 @@ name: Update Latest Substack Articles
 on:
   schedule:
     - cron: '0 */6 * * *' # Runs every 6 hours
-  workflow_dispatch:
+  workflow_dispatch: # Allows manual triggering
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   update-readme:
@@ -13,30 +17,26 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Fetch latest 5 Substack posts
-        id: substack
         run: |
           RSS_URL="https://peterlimg.substack.com/feed"
           ARTICLES=$(curl -s "$RSS_URL" | grep -oP '(?<=<item>)[\s\S]*?(?=</item>)' | head -5)
           
-          # Initialize output with proper delimiter
-          {
-            echo "articles<<EOF"
-            i=1
-            while IFS= read -r article; do
-              if [ $i -le 5 ]; then
-                TITLE=$(echo "$article" | grep -oP '(?<=<title><!\[CDATA\[)[^]]*(?=\]\]>)' || echo "$article" | grep -oP '(?<=<title>)[^<]*')
-                LINK=$(echo "$article" | grep -oP '(?<=<link>)[^<]*')
-                PUBDATE=$(echo "$article" | grep -oP '(?<=<pubDate>)[^<]*')
-                
-                # Convert date format (optional, keeping simple format)
-                FORMATTED_DATE=$(date -d "$PUBDATE" "+%B %d, %Y" 2>/dev/null || echo "$PUBDATE")
-                
-                echo "- [$TITLE]($LINK) - *$FORMATTED_DATE*"
-                i=$((i+1))
-              fi
-            done <<< "$ARTICLES"
-            echo "EOF"
-          } >> $GITHUB_OUTPUT
+          # Create articles content and write to file
+          > articles.txt
+          i=1
+          while IFS= read -r article; do
+            if [ $i -le 5 ]; then
+              TITLE=$(echo "$article" | grep -oP '(?<=<title><!\[CDATA\[)[^]]*(?=\]\]>)' || echo "$article" | grep -oP '(?<=<title>)[^<]*')
+              LINK=$(echo "$article" | grep -oP '(?<=<link>)[^<]*')
+              PUBDATE=$(echo "$article" | grep -oP '(?<=<pubDate>)[^<]*')
+              
+              # Convert date format (optional, keeping simple format)
+              FORMATTED_DATE=$(date -d "$PUBDATE" "+%B %d, %Y" 2>/dev/null || echo "$PUBDATE")
+              
+              echo "- [$TITLE]($LINK) - *$FORMATTED_DATE*" >> articles.txt
+              i=$((i+1))
+            fi
+          done <<< "$ARTICLES"
 
       - name: Update README
         run: |
@@ -62,7 +62,7 @@ jobs:
           ' README.md > README.tmp
           
           # Insert the articles between the markers
-          sed -i "/<!-- SUBSTACK:START -->/r /dev/stdin" README.tmp <<< "${{ steps.substack.outputs.articles }}"
+          sed -i "/<!-- SUBSTACK:START -->/r articles.txt" README.tmp
           
           mv README.tmp README.md
 
