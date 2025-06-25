@@ -6,202 +6,294 @@
     <title>Peter - Tech Lead & Architect</title>
     <meta name="description" content="Tech Lead/Architect specializing in Go, AWS, Docker, Kubernetes. Former VP of Engineering, now indie builder and solopreneur.">
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.css">
 </head>
 <body>
+    <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <h2>Peter</h2>
+                <span class="logo-text">Peter</span>
             </div>
             <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="#about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#skills" class="nav-link">Skills</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#writings" class="nav-link">Writings</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#contact" class="nav-link">Contact</a>
-                </li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#experience" class="nav-link">Stack</a></li>
+                <li><a href="#writings" class="nav-link">Journey</a></li>
+                <li><a href="#contact" class="nav-link">Connect</a></li>
             </ul>
-            <div class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span class="hamburger"></span>
+            </button>
         </div>
     </nav>
 
-    <main>
-        <section class="hero">
-            <div class="hero-container">
-                <div class="hero-content">
-                    <h1 class="hero-title">Hi, I'm Peter 👋</h1>
-                    <div class="hero-subtitle">
-                        <span class="highlight">Tech Lead / Architect</span> | 
-                        <span class="highlight">Go (Golang)</span> | 
-                        <span class="highlight">AWS</span> | 
-                        <span class="highlight">Docker</span> | 
-                        <span class="highlight">Kubernetes</span>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="status-indicator"></span>
+                    Solo Founder • Building in Public
+                </div>
+                <h1 class="hero-title">
+                    <span class="gradient-text">Peter</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Indie Hacker • Systems Architect • Go Engineer
+                </p>
+                <p class="hero-description">
+                    Ex-VP Engineering turned solo founder. Building an <span class="tech-highlight">AI FinOps startup</span> from zero. 
+                    Obsessed with <span class="tech-highlight">Go</span>, <span class="tech-highlight">distributed systems</span>, 
+                    and <span class="tech-highlight">cloud architecture</span>. 
+                    Sharing every win, failure, and lesson learned along the way.
+                </p>
+                <div class="hero-actions">
+                    <a href="#contact" class="btn btn-primary">
+                        <i data-lucide="coffee"></i>
+                        Let's connect
+                    </a>
+                    <a href="#writings" class="btn btn-secondary">
+                        <i data-lucide="terminal"></i>
+                        My journey
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">What I Do</h2>
+                <p class="section-subtitle">Solo founder obsessed with building great software</p>
+            </div>
+            <div class="about-grid">
+                <div class="about-card">
+                    <div class="about-icon">
+                        <i data-lucide="code"></i>
                     </div>
-                    <p class="hero-description">
-                        <strong>Blockchain, Distributed & Cloud-Native Systems Enthusiast</strong><br>
-                        🧑‍💻 10+ years building with Go and leading cloud engineering teams<br>
-                        <strong>Former VP of Engineering | Indie Builder | Solopreneur</strong>
-                    </p>
-                    <div class="hero-cta">
-                        <a href="#contact" class="btn btn-primary">Get In Touch</a>
-                        <a href="#about" class="btn btn-secondary">Learn More</a>
+                    <h3>Solo Founder</h3>
+                    <p>Building an AI FinOps platform from scratch. No VC, no team—just me, my laptop, and an unhealthy amount of coffee.</p>
+                </div>
+                <div class="about-card">
+                    <div class="about-icon">
+                        <i data-lucide="terminal"></i>
+                    </div>
+                    <h3>Systems Geek</h3>
+                    <p>10+ years deep in Go, Kubernetes, and distributed systems. Love solving complex problems with elegant code.</p>
+                </div>
+                <div class="about-card">
+                    <div class="about-icon">
+                        <i data-lucide="book-open"></i>
+                    </div>
+                    <h3>Builder in Public</h3>
+                    <p>Sharing the real journey—the late nights, the breakthroughs, the failures. No bullshit, just honest updates.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">My Stack</h2>
+                <p class="section-subtitle">Tools I use to build things that scale</p>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <div class="skill-header">
+                        <i data-lucide="code"></i>
+                        <h3>Languages</h3>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag primary">Go</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">C++</span>
+                        <span class="skill-tag">JavaScript</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <div class="skill-header">
+                        <i data-lucide="cloud"></i>
+                        <h3>Cloud & Infrastructure</h3>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag primary">AWS</span>
+                        <span class="skill-tag">Terraform</span>
+                        <span class="skill-tag">CloudFormation</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <div class="skill-header">
+                        <i data-lucide="container"></i>
+                        <h3>Containers & Orchestration</h3>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag primary">Kubernetes</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Helm</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <div class="skill-header">
+                        <i data-lucide="git-branch"></i>
+                        <h3>DevOps & Automation</h3>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">CI/CD</span>
+                        <span class="skill-tag">GitHub Actions</span>
+                        <span class="skill-tag">Monitoring</span>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="about" class="about">
-            <div class="container">
-                <h2 class="section-title">🚀 About Me</h2>
-                <div class="about-content">
-                    <div class="about-text">
-                        <ul class="about-list">
-                            <li>🛠️ Indie builder and solopreneur, currently focused on building an AI FinOps startup from the ground up</li>
-                            <li>Former VP of Engineering, now walking the indie path and building in public</li>
-                            <li>Documenting and sharing my journey—writing about the real wins, failures, and lessons learned as I build in public</li>
-                            <li>Architecting and leading high-impact engineering teams (10+ years in Golang and cloud-native environments)</li>
-                            <li>Deeply passionate about distributed systems, cloud, DevOps, blockchain, and emerging AI tech</li>
-                        </ul>
-                    </div>
-                </div>
+    <!-- Writings Section -->
+    <section id="writings" class="writings">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Latest Writings</h2>
+                <p class="section-subtitle">Sharing insights from building in public</p>
             </div>
-        </section>
-
-        <section id="skills" class="skills">
-            <div class="container">
-                <h2 class="section-title">🛠️ Core Skills</h2>
-                <div class="skills-grid">
-                    <div class="skill-card">
-                        <i class="fas fa-code skill-icon"></i>
-                        <h3>Programming</h3>
-                        <p>Go (Golang), C++, Python, React.js</p>
-                    </div>
-                    <div class="skill-card">
-                        <i class="fas fa-cloud skill-icon"></i>
-                        <h3>Cloud</h3>
-                        <p>AWS</p>
-                    </div>
-                    <div class="skill-card">
-                        <i class="fab fa-docker skill-icon"></i>
-                        <h3>Containers</h3>
-                        <p>Docker, Kubernetes, Helm</p>
-                    </div>
-                    <div class="skill-card">
-                        <i class="fas fa-tools skill-icon"></i>
-                        <h3>Infrastructure</h3>
-                        <p>Terraform, CloudFormation</p>
-                    </div>
-                    <div class="skill-card">
-                        <i class="fas fa-network-wired skill-icon"></i>
-                        <h3>Distributed Systems</h3>
-                        <p>Microservices, Event-Driven Architectures, Blockchain</p>
-                    </div>
-                    <div class="skill-card">
-                        <i class="fas fa-cogs skill-icon"></i>
-                        <h3>DevOps</h3>
-                        <p>CI/CD, GitHub Actions, Observability, Monitoring</p>
-                    </div>
+            <div class="writings-content">
+                <div class="platform-links">
+                    <a href="https://substack.com/@peterlimg" class="platform-card" target="_blank">
+                        <div class="platform-icon">
+                            <i data-lucide="newspaper"></i>
+                        </div>
+                        <div class="platform-info">
+                            <h3>Substack</h3>
+                            <p>Technical deep-dives and startup journey</p>
+                        </div>
+                        <i data-lucide="external-link" class="external-icon"></i>
+                    </a>
+                    <a href="https://medium.com/@luxairlake" class="platform-card" target="_blank">
+                        <div class="platform-icon">
+                            <i data-lucide="edit"></i>
+                        </div>
+                        <div class="platform-info">
+                            <h3>Medium</h3>
+                            <p>Engineering insights and best practices</p>
+                        </div>
+                        <i data-lucide="external-link" class="external-icon"></i>
+                    </a>
                 </div>
-            </div>
-        </section>
-
-        <section id="writings" class="writings">
-            <div class="container">
-                <h2 class="section-title">📚 Latest Writings</h2>
-                <div class="writings-content">
-                    <div class="writing-platforms">
-                        <a href="https://substack.com/@peterlimg" class="platform-link" target="_blank">
-                            <i class="fas fa-newspaper"></i>
-                            <span>Substack</span>
-                        </a>
-                        <a href="https://medium.com/@luxairlake" class="platform-link" target="_blank">
-                            <i class="fab fa-medium"></i>
-                            <span>Medium</span>
-                        </a>
-                    </div>
-                    <div class="latest-article">
-                        <h3>Latest Articles</h3>
-                        <div class="article-list">
-                            <div class="article-item">
-                                <a href="https://peterlimg.substack.com/p/the-architecture-migration-that-nobody" target="_blank">
-                                    The Architecture Migration That Nobody Sees
-                                </a>
-                                <span class="article-date">June 10, 2025</span>
+                <div class="articles-section">
+                    <h3 class="articles-title">Recent Articles</h3>
+                    <div class="articles-grid" id="articles-container">
+                        <!-- Articles will be loaded here dynamically -->
+                        <div class="article-card">
+                            <div class="article-meta">
+                                <span class="article-date">June 23, 2025</span>
+                                <span class="article-source">Substack</span>
                             </div>
-                            <div class="article-item">
-                                <a href="https://peterlimg.substack.com/p/from-prototype-to-product-adding" target="_blank">
-                                    From Prototype to Product: Adding Multi-Tenant Architecture
+                            <h4 class="article-title">
+                                <a href="https://peterlimg.substack.com/p/building-better-cloud-cost-testing" target="_blank">
+                                    Building Better Cloud Cost Testing: The Fox Tool Story
                                 </a>
-                                <span class="article-date">June 9, 2025</span>
+                            </h4>
+                            <p class="article-excerpt">The past few days have been quiet on here, and here's why...</p>
+                        </div>
+                        <div class="article-card">
+                            <div class="article-meta">
+                                <span class="article-date">June 17, 2025</span>
+                                <span class="article-source">Substack</span>
                             </div>
-                            <div class="article-item">
-                                <a href="https://peterlimg.substack.com/p/building-an-ai-native-finops-system" target="_blank">
-                                    Building an AI-Native FinOps System: From AWS Data Chaos to Cost Optimization
+                            <h4 class="article-title">
+                                <a href="https://peterlimg.substack.com/p/how-i-built-an-ai-powered-aws-cost" target="_blank">
+                                    How I Built an AI-Powered AWS Cost Optimization Engine
                                 </a>
-                                <span class="article-date">June 8, 2025</span>
+                            </h4>
+                            <p class="article-excerpt">Day 31-32 of building our FinOps AI platform - the integration challenges and breakthroughs...</p>
+                        </div>
+                        <div class="article-card">
+                            <div class="article-meta">
+                                <span class="article-date">June 14, 2025</span>
+                                <span class="article-source">Substack</span>
                             </div>
+                            <h4 class="article-title">
+                                <a href="https://peterlimg.substack.com/p/move-fast-with-mathematical-certainty" target="_blank">
+                                    Move Fast with Mathematical Certainty
+                                </a>
+                            </h4>
+                            <p class="article-excerpt">How I rebuilt my FinOps platform in 48 hours as a solo founder...</p>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="contact" class="contact">
-            <div class="container">
-                <h2 class="section-title">🌎 Connect with Me</h2>
-                <div class="social-links">
-                    <a href="https://www.linkedin.com/in/peterm08/" class="social-link linkedin" target="_blank">
-                        <i class="fab fa-linkedin"></i>
-                        <span>LinkedIn</span>
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Let's Connect</h2>
+                <p class="section-subtitle">Always open to discussing technology, startups, and opportunities</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-grid">
+                    <a href="https://www.linkedin.com/in/peterm08/" class="contact-card" target="_blank">
+                        <div class="contact-icon linkedin">
+                            <i data-lucide="linkedin"></i>
+                        </div>
+                        <div class="contact-info">
+                            <h3>LinkedIn</h3>
+                            <p>Professional network</p>
+                        </div>
                     </a>
-                    <a href="https://substack.com/@peterlimg" class="social-link substack" target="_blank">
-                        <i class="fas fa-newspaper"></i>
-                        <span>Substack</span>
+                    <a href="https://x.com/erodoe16" class="contact-card" target="_blank">
+                        <div class="contact-icon twitter">
+                            <i data-lucide="twitter"></i>
+                        </div>
+                        <div class="contact-info">
+                            <h3>Twitter</h3>
+                            <p>Quick thoughts and updates</p>
+                        </div>
                     </a>
-                    <a href="https://medium.com/@luxairlake" class="social-link medium" target="_blank">
-                        <i class="fab fa-medium"></i>
-                        <span>Medium</span>
-                    </a>
-                    <a href="https://x.com/erodoe16" class="social-link twitter" target="_blank">
-                        <i class="fab fa-twitter"></i>
-                        <span>Twitter/X</span>
+                    <a href="mailto:contact@peterlimg.com" class="contact-card">
+                        <div class="contact-icon email">
+                            <i data-lucide="mail"></i>
+                        </div>
+                        <div class="contact-info">
+                            <h3>Email</h3>
+                            <p>Direct communication</p>
+                        </div>
                     </a>
                 </div>
-                <div class="fun-facts">
-                    <h3>⚡ Fun Facts</h3>
-                    <ul>
-                        <li>Walking the indie path: building in public, sharing both the wins and pitfalls of solopreneurship</li>
-                        <li>Survived and thrived in over a decade of cloud-native engineering wars</li>
-                        <li>Forever a student: curious about AI, blockchain, and the future of distributed finance</li>
-                    </ul>
-                </div>
-                <div class="quote">
+                <div class="quote-card">
                     <blockquote>
-                        "The best way to predict the future is to architect it."
-                        <footer>— Peter</footer>
+                        "Ship fast, learn faster. The market is the only validator that matters."
                     </blockquote>
+                    <cite>— My philosophy as a solo founder</cite>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
+    <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2024 Peter. Built with passion for technology and innovation.</p>
+            <div class="footer-content">
+                <p>&copy; 2024 Peter. Built with Go, caffeine, and late nights.</p>
+                <div class="footer-links">
+                    <a href="#about">About</a>
+                    <a href="#experience">Stack</a>
+                    <a href="#writings">Journey</a>
+                    <a href="#contact">Connect</a>
+                </div>
+            </div>
         </div>
     </footer>
 
+    <!-- Scripts -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

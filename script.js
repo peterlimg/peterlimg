@@ -1,16 +1,25 @@
+// Initialize Lucide icons
+document.addEventListener('DOMContentLoaded', () => {
+    lucide.createIcons();
+});
+
 // Mobile Navigation Toggle
-const hamburger = document.querySelector('.hamburger');
+const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
 const navMenu = document.querySelector('.nav-menu');
 
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navMenu.classList.toggle('active');
-});
+if (mobileMenuBtn && navMenu) {
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileMenuBtn.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+}
 
 // Close mobile menu when clicking on a link
 document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
-    hamburger.classList.remove('active');
-    navMenu.classList.remove('active');
+    if (mobileMenuBtn && navMenu) {
+        mobileMenuBtn.classList.remove('active');
+        navMenu.classList.remove('active');
+    }
 }));
 
 // Smooth scrolling for navigation links
@@ -27,19 +36,23 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Navbar background change on scroll
+// Enhanced navbar background on scroll with shadcn/ui colors
 window.addEventListener('scroll', () => {
     const navbar = document.querySelector('.navbar');
-    if (window.scrollY > 50) {
-        navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
-        navbar.style.backdropFilter = 'blur(10px)';
-    } else {
-        navbar.style.backgroundColor = '#fff';
-        navbar.style.backdropFilter = 'none';
+    if (navbar) {
+        if (window.scrollY > 50) {
+            navbar.style.backgroundColor = 'hsl(var(--background) / 0.95)';
+            navbar.style.backdropFilter = 'blur(12px)';
+            navbar.style.borderBottom = '1px solid hsl(var(--border))';
+        } else {
+            navbar.style.backgroundColor = 'hsl(var(--background) / 0.8)';
+            navbar.style.backdropFilter = 'blur(8px)';
+            navbar.style.borderBottom = '1px solid transparent';
+        }
     }
 });
 
-// Simplified intersection observer for subtle effects
+// Enhanced intersection observer for shadcn/ui animations
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
@@ -49,17 +62,19 @@ const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
         }
     });
 }, observerOptions);
 
-// Minimal fade-in animation
+// Enhanced fade-in animation for shadcn/ui components
 document.addEventListener('DOMContentLoaded', () => {
-    const animatedElements = document.querySelectorAll('.skill-card, .article-item');
+    const animatedElements = document.querySelectorAll('.about-card, .skill-category, .platform-card, .article-card, .contact-card');
     
     animatedElements.forEach(el => {
-        el.style.opacity = '0.8';
-        el.style.transition = 'opacity 0.3s ease';
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
     });
 });
@@ -97,31 +112,45 @@ const scrollToTop = () => {
     });
 };
 
-// Create scroll-to-top button
+// Create scroll-to-top button with shadcn/ui styling
 const createScrollButton = () => {
     const button = document.createElement('button');
-    button.innerHTML = '↑';
+    button.innerHTML = '<i data-lucide="arrow-up"></i>';
     button.className = 'scroll-to-top';
     button.style.cssText = `
         position: fixed;
-        bottom: 20px;
-        right: 20px;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        background-color: #2563eb;
-        color: white;
-        border: none;
-        font-size: 1.5rem;
+        bottom: 2rem;
+        right: 2rem;
+        width: 3rem;
+        height: 3rem;
+        border-radius: var(--radius);
+        background-color: hsl(var(--primary));
+        color: hsl(var(--primary-foreground));
+        border: 1px solid hsl(var(--border));
+        display: flex;
+        align-items: center;
+        justify-content: center;
         cursor: pointer;
         opacity: 0;
-        transition: opacity 0.3s ease, transform 0.3s ease;
+        transition: all 0.3s ease;
         z-index: 1000;
-        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        box-shadow: var(--shadow-lg);
     `;
     
     button.addEventListener('click', scrollToTop);
+    button.addEventListener('mouseenter', () => {
+        button.style.transform = 'scale(1.1)';
+        button.style.boxShadow = 'var(--shadow-xl)';
+    });
+    button.addEventListener('mouseleave', () => {
+        button.style.transform = 'scale(1)';
+        button.style.boxShadow = 'var(--shadow-lg)';
+    });
+    
     document.body.appendChild(button);
+    
+    // Initialize icon after adding to DOM
+    lucide.createIcons();
     
     // Show/hide scroll button based on scroll position
     window.addEventListener('scroll', () => {
@@ -138,13 +167,53 @@ const createScrollButton = () => {
 // Initialize scroll button
 document.addEventListener('DOMContentLoaded', createScrollButton);
 
-// Minimal hover effects
+// Enhanced hover effects for shadcn/ui components
 document.addEventListener('DOMContentLoaded', () => {
-    const skillCards = document.querySelectorAll('.skill-card');
+    // Add enhanced hover interactions
+    const cards = document.querySelectorAll('.about-card, .skill-category, .platform-card, .article-card, .contact-card');
     
-    skillCards.forEach(card => {
-        card.style.transition = 'border-color 0.2s ease';
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.transform = 'translateY(-4px)';
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'translateY(0)';
+        });
+    });
+    
+    // Add skill tag hover effects
+    const skillTags = document.querySelectorAll('.skill-tag');
+    skillTags.forEach(tag => {
+        tag.addEventListener('mouseenter', () => {
+            tag.style.transform = 'translateY(-1px)';
+        });
+        
+        tag.addEventListener('mouseleave', () => {
+            tag.style.transform = 'translateY(0)';
+        });
     });
 });
 
-// Clean, minimal JavaScript - removed typing effect for simplicity
+// Mobile menu hamburger animation
+const addMobileMenuAnimation = () => {
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const hamburger = document.querySelector('.hamburger');
+    
+    if (mobileMenuBtn && hamburger) {
+        mobileMenuBtn.addEventListener('click', () => {
+            const isActive = mobileMenuBtn.classList.contains('active');
+            
+            if (isActive) {
+                hamburger.style.transform = 'rotate(45deg)';
+                hamburger.style.backgroundColor = 'transparent';
+            } else {
+                hamburger.style.transform = 'rotate(0deg)';
+                hamburger.style.backgroundColor = 'hsl(var(--foreground))';
+            }
+        });
+    }
+};
+
+// Initialize mobile menu animation
+document.addEventListener('DOMContentLoaded', addMobileMenuAnimation);
