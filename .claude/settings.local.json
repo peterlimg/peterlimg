@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "WebFetch(domain:peterlimg.substack.com)",
+      "Bash(git push:*)",
+      "Bash(gh workflow run:*)",
+      "Bash(gh run view:*)",
+      "Bash(gh run list:*)",
+      "Bash(git pull:*)"
+    ],
+    "deny": []
+  }
+}
