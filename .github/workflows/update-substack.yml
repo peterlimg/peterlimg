@@ -37,8 +37,19 @@ jobs:
           
           # Extract items using regex (more reliable than XML parsing for malformed feeds)
           item_pattern = r'<item>(.*?)</item>'
-          items = re.findall(item_pattern, content, re.DOTALL)
+          items = re.findall(item_pattern, content, re.DOTALL | re.MULTILINE)
           print(f'DEBUG: Found {len(items)} items', file=sys.stderr)
+          
+          # If no items found with regex, try a simpler approach
+          if len(items) == 0:
+              print('DEBUG: Regex failed, trying split approach', file=sys.stderr)
+              # Split by item tags and extract content
+              parts = content.split('<item>')
+              for i, part in enumerate(parts[1:]):  # Skip first empty part
+                  if '</item>' in part:
+                      item_content = part.split('</item>')[0]
+                      items.append(item_content)
+              print(f'DEBUG: Split approach found {len(items)} items', file=sys.stderr)
           
           articles_written = 0
           with open('articles.txt', 'w') as f:
