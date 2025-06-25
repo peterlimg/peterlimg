@@ -11,9 +11,9 @@ body {
   line-height: 1.5;
   color: #000;
   background-color: #fff;
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 3rem 2rem;
 }
 
 .container {
@@ -27,28 +27,30 @@ body {
 }
 
 .name {
-  font-size: 3.5rem;
+  font-size: 4.5rem;
   font-weight: normal;
   color: #2E86AB;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   letter-spacing: -0.02em;
+  line-height: 1.1;
 }
 
 .contact-info {
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
-  line-height: 1.4;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  line-height: 1.5;
 }
 
 .title {
-  font-size: 1.1rem;
-  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
   line-height: 1.4;
 }
 
 .social-links {
-  font-size: 1rem;
+  font-size: 1.1rem;
   margin-top: 1rem;
+  margin-bottom: 2rem;
 }
 
 .social-links a {
@@ -62,36 +64,40 @@ body {
 
 /* Main content */
 .intro-section {
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .intro-content {
-  display: flex;
-  align-items: flex-start;
-  gap: 2rem;
+  display: block;
 }
 
 .intro-text {
-  flex: 1;
+  width: 100%;
 }
 
 .intro-text p {
-  margin-bottom: 1rem;
-  font-size: 1rem;
+  margin-bottom: 1.2rem;
+  font-size: 1.1rem;
   line-height: 1.6;
   text-align: justify;
 }
 
 /* Publications section */
 .publications {
-  margin-top: 3rem;
+  margin-top: 4rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .section-title {
-  font-size: 1.8rem;
+  font-size: 2rem;
   color: #2E86AB;
   font-weight: normal;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   text-align: left;
 }
 
@@ -101,16 +107,18 @@ body {
 }
 
 .publication-list li {
-  margin-bottom: 0.8rem;
+  margin-bottom: 1rem;
   position: relative;
-  line-height: 1.5;
+  line-height: 1.6;
+  font-size: 1.05rem;
 }
 
 .publication-list li:before {
   content: "•";
   position: absolute;
-  left: -1rem;
+  left: -1.2rem;
   color: #000;
+  font-weight: bold;
 }
 
 /* Links */
@@ -133,34 +141,60 @@ a:visited {
 }
 
 /* Responsive */
-@media (max-width: 700px) {
+@media (max-width: 800px) {
   body {
-    padding: 1rem 0.5rem;
+    padding: 2rem 1rem;
   }
   
   .name {
-    font-size: 2.8rem;
-  }
-  
-  .intro-content {
-    flex-direction: column;
+    font-size: 3.5rem;
   }
   
   .section-title {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
   }
   
   .publication-list {
-    margin-left: 1rem;
+    margin-left: 1.5rem;
+  }
+  
+  .intro-text p {
+    font-size: 1rem;
+  }
+  
+  .publication-list li {
+    font-size: 1rem;
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
+  body {
+    padding: 1.5rem 1rem;
+  }
+  
   .name {
-    font-size: 2.2rem;
+    font-size: 3rem;
+  }
+  
+  .contact-info {
+    font-size: 1rem;
   }
   
   .title {
+    font-size: 1.1rem;
+  }
+  
+  .social-links {
     font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .name {
+    font-size: 2.5rem;
+  }
+  
+  .section-title {
+    font-size: 1.6rem;
   }
 }
