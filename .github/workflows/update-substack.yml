@@ -73,13 +73,17 @@ jobs:
           START="<!-- SUBSTACK:START -->"
           END="<!-- SUBSTACK:END -->"
           
-          # Create temporary file with new content
+          # Create new README with updated articles
           awk -v start="$START" -v end="$END" '
             BEGIN {found=0}
             {
               if(index($0, start)) {
                 found=1
                 print
+                while((getline line < "articles.txt") > 0) {
+                  print line
+                }
+                close("articles.txt")
                 next
               }
               if(index($0, end)) {
@@ -87,12 +91,9 @@ jobs:
                 print
                 next
               }
-              if(!found) print
+              if(found==0) print
             }
           ' README.md > README.tmp
-          
-          # Insert the articles between the markers
-          sed -i "/<!-- SUBSTACK:START -->/r articles.txt" README.tmp
           
           mv README.tmp README.md
 
