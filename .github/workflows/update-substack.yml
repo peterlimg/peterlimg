@@ -34,6 +34,8 @@ jobs:
           # Read raw RSS content
           content = sys.stdin.read()
           print(f'DEBUG: Content length: {len(content)}', file=sys.stderr)
+          print(f'DEBUG: First 1000 chars: {content[:1000]}', file=sys.stderr)
+          print(f'DEBUG: Contains <item>: {\"<item>\" in content}', file=sys.stderr)
           
           # Extract items using regex (more reliable than XML parsing for malformed feeds)
           item_pattern = r'<item>(.*?)</item>'
