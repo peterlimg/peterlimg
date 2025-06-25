@@ -24,8 +24,11 @@ jobs:
         run: |
           RSS_URL="https://peterlimg.substack.com/feed"
           
-          # Use a more robust approach with xmllint for XML cleanup
-          curl -s -A "Mozilla/5.0 (compatible; RSS Reader)" "$RSS_URL" | \
+          # Use a more robust approach with better user agent and headers
+          curl -s -L -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36" \
+               -H "Accept: application/rss+xml, application/xml, text/xml" \
+               -H "Cache-Control: no-cache" \
+               "$RSS_URL" | \
           python3 -c "
           import sys
           import re
