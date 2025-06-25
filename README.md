@@ -47,6 +47,11 @@
 #### 📰 Latest on Substack
 
 <!-- SUBSTACK:START -->
+- [Building Better Cloud Cost Testing: The Fox Tool Story](https://peterlimg.substack.com/p/building-better-cloud-cost-testing) - *June 23, 2025*
+- [How I Built an AI-Powered AWS Cost Optimization Engine](https://peterlimg.substack.com/p/how-i-built-an-ai-powered-aws-cost) - *June 17, 2025*
+- [Move Fast with Mathematical Certainty: How I Rebuilt My FinOps Platform in 48 Hours](https://peterlimg.substack.com/p/move-fast-with-mathematical-certainty) - *June 14, 2025*
+- [The Architecture Migration That Nobody Sees](https://peterlimg.substack.com/p/the-architecture-migration-that-nobody) - *June 10, 2025*
+- [From Prototype to Product: Adding Multi-Tenant Architecture](https://peterlimg.substack.com/p/from-prototype-to-product-adding) - *June 09, 2025*
 <!-- SUBSTACK:END -->
 
 ---
