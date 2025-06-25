@@ -70,6 +70,12 @@ jobs:
 
       - name: Update README
         run: |
+          # Debug: Check if articles.txt was created and has content
+          echo "=== Debug: articles.txt content ==="
+          ls -la articles.txt || echo "articles.txt not found"
+          cat articles.txt || echo "articles.txt is empty"
+          echo "=== End Debug ==="
+          
           # Use a simpler approach with sed and temp files
           # Split README into before, articles, and after sections
           
@@ -84,6 +90,11 @@ jobs:
           echo "<!-- SUBSTACK:START -->" >> README.tmp
           cat articles.txt >> README.tmp
           cat after.tmp >> README.tmp
+          
+          # Debug: Show differences
+          echo "=== Debug: README diff ==="
+          diff README.md README.tmp || echo "Files differ (this is expected)"
+          echo "=== End Debug ==="
           
           # Replace original README
           mv README.tmp README.md
