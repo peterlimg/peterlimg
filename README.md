@@ -4,7 +4,7 @@
 **Tech Lead / Architect** | **Go (Golang)** | **AWS** | **Docker** | **Kubernetes**  
 **Distributed & Cloud-Native Systems Enthusiast**  
 
-🧑‍💻 10+ years building with Go and leading cloud engineering teams  
+🧑‍💻 14 years building with Go and leading cloud engineering teams  
 
 
 ---
