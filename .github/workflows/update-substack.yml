@@ -24,18 +24,106 @@ jobs:
         run: |
           RSS_URL="https://peterlimg.substack.com/feed"
           
-          # Create a simple fallback with known articles if RSS fails
-          cat > articles.txt << 'EOF'
-          - [Building Better Cloud Cost Testing: The Fox Tool Story](https://peterlimg.substack.com/p/building-better-cloud-cost-testing) - *June 23, 2025*
-          - [How I Built an AI-Powered AWS Cost Optimization Engine](https://peterlimg.substack.com/p/how-i-built-an-ai-powered-aws-cost) - *June 17, 2025*
-          - [Move Fast with Mathematical Certainty: How I Rebuilt My FinOps Platform in 48 Hours](https://peterlimg.substack.com/p/move-fast-with-mathematical-certainty) - *June 14, 2025*
-          - [The Architecture Migration That Nobody Sees](https://peterlimg.substack.com/p/the-architecture-migration-that-nobody) - *June 10, 2025*
-          - [From Prototype to Product: Adding Multi-Tenant Architecture](https://peterlimg.substack.com/p/from-prototype-to-product-adding) - *June 09, 2025*
-          EOF
+          echo "Attempting to fetch RSS feed from $RSS_URL"
           
-          echo "Created fallback articles.txt with latest posts"
-          ls -la articles.txt
+          # Try to fetch RSS feed with proper headers
+          if curl -L -A "Mozilla/5.0 (compatible; GitHubActions/1.0)" \
+               -H "Accept: application/rss+xml, application/xml, text/xml" \
+               --connect-timeout 30 \
+               --max-time 60 \
+               --retry 3 \
+               --retry-delay 5 \
+               "$RSS_URL" -o rss_feed.xml; then
+            
+            echo "RSS feed fetched successfully"
+            
+            # Parse RSS feed with Python
+            python3 << 'PYTHON_EOF'
+import xml.etree.ElementTree as ET
+import re
+from datetime import datetime
+import sys
+
+try:
+    # Parse the RSS XML
+    tree = ET.parse('rss_feed.xml')
+    root = tree.getroot()
+    
+    # Find all item elements
+    items = root.findall('.//item')[:5]  # Get first 5 items
+    
+    articles = []
+    
+    for item in items:
+        title_elem = item.find('title')
+        link_elem = item.find('link')
+        pub_date_elem = item.find('pubDate')
+        
+        if title_elem is not None and link_elem is not None:
+            title = title_elem.text.strip()
+            link = link_elem.text.strip()
+            
+            # Parse publication date
+            date_str = "Recent"
+            if pub_date_elem is not None:
+                try:
+                    # Parse RFC 2822 date format
+                    pub_date = datetime.strptime(pub_date_elem.text.strip(), '%a, %d %b %Y %H:%M:%S %z')
+                    date_str = pub_date.strftime('%B %Y')
+                except:
+                    try:
+                        # Try alternative format without timezone
+                        pub_date = datetime.strptime(pub_date_elem.text.strip()[:25], '%a, %d %b %Y %H:%M:%S')
+                        date_str = pub_date.strftime('%B %Y')
+                    except:
+                        date_str = "Recent"
+            
+            # Format for README
+            article_line = f"- [{title}]({link}) - *{date_str}*"
+            articles.append(article_line)
+    
+    # Write articles to file
+    if articles:
+        with open('articles.txt', 'w') as f:
+            f.write('\n'.join(articles) + '\n')
+        print(f"Successfully parsed {len(articles)} articles from RSS feed")
+    else:
+        print("No articles found in RSS feed")
+        sys.exit(1)
+        
+except Exception as e:
+    print(f"Error parsing RSS feed: {e}")
+    sys.exit(1)
+PYTHON_EOF
+            
+            if [ $? -eq 0 ]; then
+              echo "RSS parsing successful"
+              echo "=== Articles found ==="
+              cat articles.txt
+              echo "=== End articles ==="
+            else
+              echo "RSS parsing failed, using fallback"
+              rm -f articles.txt
+            fi
+          else
+            echo "Failed to fetch RSS feed, using fallback"
+          fi
+          
+          # Fallback to hardcoded articles if RSS failed
+          if [ ! -f articles.txt ] || [ ! -s articles.txt ]; then
+            echo "Creating fallback articles.txt"
+            cat > articles.txt << 'EOF'
+- [Building Better Cloud Cost Testing: The Fox Tool Story](https://peterlimg.substack.com/p/building-better-cloud-cost-testing) - *June 2025*
+- [How I Built an AI-Powered AWS Cost Optimization Engine](https://peterlimg.substack.com/p/how-i-built-an-ai-powered-aws-cost) - *June 2025*
+- [Move Fast with Mathematical Certainty: How I Rebuilt My FinOps Platform in 48 Hours](https://peterlimg.substack.com/p/move-fast-with-mathematical-certainty) - *June 2025*
+- [The Architecture Migration That Nobody Sees](https://peterlimg.substack.com/p/the-architecture-migration-that-nobody) - *June 2025*
+- [From Prototype to Product: Adding Multi-Tenant Architecture](https://peterlimg.substack.com/p/from-prototype-to-product-adding) - *June 2025*
+EOF
+          fi
+          
+          echo "=== Final articles.txt content ==="
           cat articles.txt
+          echo "=== End final content ==="
 
       - name: Update README
         run: |
