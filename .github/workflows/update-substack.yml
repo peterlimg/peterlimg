@@ -37,68 +37,20 @@ jobs:
             
             echo "RSS feed fetched successfully"
             
-            # Parse RSS feed with Python
-            cat > parse_rss.py << 'EOF'
-import xml.etree.ElementTree as ET
-import re
-from datetime import datetime
-import sys
-
-try:
-    # Parse the RSS XML
-    tree = ET.parse('rss_feed.xml')
-    root = tree.getroot()
-    
-    # Find all item elements
-    items = root.findall('.//item')[:5]  # Get first 5 items
-    
-    articles = []
-    
-    for item in items:
-        title_elem = item.find('title')
-        link_elem = item.find('link')
-        pub_date_elem = item.find('pubDate')
-        
-        if title_elem is not None and link_elem is not None:
-            title = title_elem.text.strip()
-            link = link_elem.text.strip()
+            # Parse RSS with basic tools instead of Python
+            echo "Extracting articles from RSS feed..."
             
-            # Parse publication date
-            date_str = "Recent"
-            if pub_date_elem is not None:
-                try:
-                    # Parse RFC 2822 date format
-                    pub_date = datetime.strptime(pub_date_elem.text.strip(), '%a, %d %b %Y %H:%M:%S %z')
-                    date_str = pub_date.strftime('%B %Y')
-                except:
-                    try:
-                        # Try alternative format without timezone
-                        pub_date = datetime.strptime(pub_date_elem.text.strip()[:25], '%a, %d %b %Y %H:%M:%S')
-                        date_str = pub_date.strftime('%B %Y')
-                    except:
-                        date_str = "Recent"
+            # Extract titles and links using grep and sed
+            grep -oP '<item>.*?</item>' rss_feed.xml | head -5 | while IFS= read -r item; do
+              title=$(echo "$item" | grep -oP '<title><!\[CDATA\[\K[^\]]*' || echo "$item" | grep -oP '<title>\K[^<]*')
+              link=$(echo "$item" | grep -oP '<link>\K[^<]*')
+              
+              if [ ! -z "$title" ] && [ ! -z "$link" ]; then
+                echo "- [$title]($link) - *Recent*" >> articles.txt
+              fi
+            done
             
-            # Format for README
-            article_line = f"- [{title}]({link}) - *{date_str}*"
-            articles.append(article_line)
-    
-    # Write articles to file
-    if articles:
-        with open('articles.txt', 'w') as f:
-            f.write('\n'.join(articles) + '\n')
-        print(f"Successfully parsed {len(articles)} articles from RSS feed")
-    else:
-        print("No articles found in RSS feed")
-        sys.exit(1)
-        
-except Exception as e:
-    print(f"Error parsing RSS feed: {e}")
-    sys.exit(1)
-EOF
-            
-            python3 parse_rss.py
-            
-            if [ $? -eq 0 ]; then
+            if [ -f articles.txt ] && [ -s articles.txt ]; then
               echo "RSS parsing successful"
               echo "=== Articles found ==="
               cat articles.txt
