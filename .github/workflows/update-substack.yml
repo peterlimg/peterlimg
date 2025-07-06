@@ -38,7 +38,7 @@ jobs:
             echo "RSS feed fetched successfully"
             
             # Parse RSS feed with Python
-            python3 << 'PYTHON_EOF'
+            cat > parse_rss.py << 'EOF'
 import xml.etree.ElementTree as ET
 import re
 from datetime import datetime
@@ -94,7 +94,9 @@ try:
 except Exception as e:
     print(f"Error parsing RSS feed: {e}")
     sys.exit(1)
-PYTHON_EOF
+EOF
+            
+            python3 parse_rss.py
             
             if [ $? -eq 0 ]; then
               echo "RSS parsing successful"
