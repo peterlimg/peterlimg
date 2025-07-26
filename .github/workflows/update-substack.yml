@@ -31,13 +31,11 @@ jobs:
           # Fallback to hardcoded articles if RSS failed
           if [ ! -f articles.txt ] || [ ! -s articles.txt ]; then
             echo "Creating fallback articles.txt"
-            cat > articles.txt << 'EOF'
-- [Building Better Cloud Cost Testing: The Fox Tool Story](https://peterlimg.substack.com/p/building-better-cloud-cost-testing) - *June 2025*
-- [How I Built an AI-Powered AWS Cost Optimization Engine](https://peterlimg.substack.com/p/how-i-built-an-ai-powered-aws-cost) - *June 2025*
-- [Move Fast with Mathematical Certainty: How I Rebuilt My FinOps Platform in 48 Hours](https://peterlimg.substack.com/p/move-fast-with-mathematical-certainty) - *June 2025*
-- [The Architecture Migration That Nobody Sees](https://peterlimg.substack.com/p/the-architecture-migration-that-nobody) - *June 2025*
-- [From Prototype to Product: Adding Multi-Tenant Architecture](https://peterlimg.substack.com/p/from-prototype-to-product-adding) - *June 2025*
-EOF
+            echo "- [Why Streaming Plans in Real Time Was Worth the Architecture Overhaul](https://peterlimg.substack.com/p/back-to-building-real-time-streaming)" > articles.txt
+            echo "- [Making AI Optimization Feel Natural](https://peterlimg.substack.com/p/making-ai-optimization-feel-natural)" >> articles.txt
+            echo "- [When You're Too Deep in Code to Write About It](https://peterlimg.substack.com/p/when-youre-too-deep-in-code-to-write)" >> articles.txt
+            echo "- [Building Better Cloud Cost Testing: The Fox Tool Story](https://peterlimg.substack.com/p/building-better-cloud-cost-testing)" >> articles.txt
+            echo "- [How I Built an AI-Powered AWS Cost Optimization Engine](https://peterlimg.substack.com/p/how-i-built-an-ai-powered-aws-cost)" >> articles.txt
           fi
           
           echo "=== Final articles.txt content ==="
