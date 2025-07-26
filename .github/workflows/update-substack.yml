@@ -42,18 +42,14 @@ jobs:
             # Parse RSS with Python for more reliable parsing
             echo "Extracting articles from RSS feed..."
             
-            python3 << 'PYTHON_EOF'
+            # Create Python script file
+            cat > parse_rss.py << 'EOF'
 import xml.etree.ElementTree as ET
-import re
-from datetime import datetime
 
 try:
-    # Parse the RSS XML
     tree = ET.parse('rss_feed.xml')
     root = tree.getroot()
-    
-    # Find all items
-    items = root.findall('.//item')[:5]  # Get first 5 items
+    items = root.findall('.//item')[:5]
     
     articles = []
     for item in items:
@@ -64,14 +60,12 @@ try:
             title = title_elem.text
             link = link_elem.text
             
-            # Clean up CDATA if present
             if title and title.startswith('<![CDATA[') and title.endswith(']]>'):
                 title = title[9:-3]
             
             if title and link:
                 articles.append(f"- [{title}]({link}) - *Recent*")
     
-    # Write articles to file
     if articles:
         with open('articles.txt', 'w') as f:
             for article in articles:
@@ -84,8 +78,10 @@ try:
         
 except Exception as e:
     print(f"Error parsing RSS: {e}")
-    
-PYTHON_EOF
+EOF
+
+            # Run the Python script
+            python3 parse_rss.py
             
             if [ -f articles.txt ] && [ -s articles.txt ]; then
               echo "RSS parsing successful"
