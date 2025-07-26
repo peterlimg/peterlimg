@@ -6,6 +6,8 @@ on:
   workflow_dispatch: # Allows manual triggering
   push:
     branches: [ main ]
+    paths:
+      - '.github/workflows/update-substack.yml'
   pull_request:
     branches: [ main ]
 
@@ -37,18 +39,53 @@ jobs:
             
             echo "RSS feed fetched successfully"
             
-            # Parse RSS with basic tools instead of Python
+            # Parse RSS with Python for more reliable parsing
             echo "Extracting articles from RSS feed..."
             
-            # Extract titles and links using grep and sed
-            grep -oP '<item>.*?</item>' rss_feed.xml | head -5 | while IFS= read -r item; do
-              title=$(echo "$item" | grep -oP '<title><!\[CDATA\[\K[^\]]*' || echo "$item" | grep -oP '<title>\K[^<]*')
-              link=$(echo "$item" | grep -oP '<link>\K[^<]*')
-              
-              if [ ! -z "$title" ] && [ ! -z "$link" ]; then
-                echo "- [$title]($link) - *Recent*" >> articles.txt
-              fi
-            done
+            python3 << 'PYTHON_EOF'
+import xml.etree.ElementTree as ET
+import re
+from datetime import datetime
+
+try:
+    # Parse the RSS XML
+    tree = ET.parse('rss_feed.xml')
+    root = tree.getroot()
+    
+    # Find all items
+    items = root.findall('.//item')[:5]  # Get first 5 items
+    
+    articles = []
+    for item in items:
+        title_elem = item.find('title')
+        link_elem = item.find('link')
+        
+        if title_elem is not None and link_elem is not None:
+            title = title_elem.text
+            link = link_elem.text
+            
+            # Clean up CDATA if present
+            if title and title.startswith('<![CDATA[') and title.endswith(']]>'):
+                title = title[9:-3]
+            
+            if title and link:
+                articles.append(f"- [{title}]({link}) - *Recent*")
+    
+    # Write articles to file
+    if articles:
+        with open('articles.txt', 'w') as f:
+            for article in articles:
+                f.write(article + '\n')
+        print(f"Successfully extracted {len(articles)} articles")
+        for article in articles:
+            print(article)
+    else:
+        print("No articles found in RSS feed")
+        
+except Exception as e:
+    print(f"Error parsing RSS: {e}")
+    
+PYTHON_EOF
             
             if [ -f articles.txt ] && [ -s articles.txt ]; then
               echo "RSS parsing successful"
