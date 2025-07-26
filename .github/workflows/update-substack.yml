@@ -40,46 +40,36 @@ jobs:
             # Parse RSS with Python for more reliable parsing
             echo "Extracting articles from RSS feed..."
             
-            # Create Python script file
-            cat > parse_rss.py << 'EOF'
+            # Create and run Python RSS parser
+            python3 -c "
 import xml.etree.ElementTree as ET
-
 try:
     tree = ET.parse('rss_feed.xml')
     root = tree.getroot()
     items = root.findall('.//item')[:5]
-    
     articles = []
     for item in items:
         title_elem = item.find('title')
         link_elem = item.find('link')
-        
         if title_elem is not None and link_elem is not None:
             title = title_elem.text
             link = link_elem.text
-            
             if title and title.startswith('<![CDATA[') and title.endswith(']]>'):
                 title = title[9:-3]
-            
             if title and link:
-                articles.append(f"- [{title}]({link}) - *Recent*")
-    
+                articles.append(f'- [{title}]({link}) - *Recent*')
     if articles:
         with open('articles.txt', 'w') as f:
             for article in articles:
                 f.write(article + '\n')
-        print(f"Successfully extracted {len(articles)} articles")
+        print(f'Successfully extracted {len(articles)} articles')
         for article in articles:
             print(article)
     else:
-        print("No articles found in RSS feed")
-        
+        print('No articles found in RSS feed')
 except Exception as e:
-    print(f"Error parsing RSS: {e}")
-EOF
-
-            # Run the Python script
-            python3 parse_rss.py
+    print(f'Error parsing RSS: {e}')
+"
             
             if [ -f articles.txt ] && [ -s articles.txt ]; then
               echo "RSS parsing successful"
