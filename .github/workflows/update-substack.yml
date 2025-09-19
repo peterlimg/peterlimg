@@ -23,21 +23,57 @@ jobs:
       - name: Fetch latest 5 Substack posts
         run: |
           RSS_URL="https://peterlimg.substack.com/feed"
-          
+
           echo "Attempting to fetch RSS feed from $RSS_URL"
-          
-          echo "Using current articles (RSS parsing disabled for now)"
-          
-          # Fallback to hardcoded articles if RSS failed
+
+          # Fetch and parse the RSS feed to extract the latest 5 articles
+          curl -s "$RSS_URL" > rss_feed.xml
+
+          # Use awk to properly parse multiline XML items
+          awk '
+          BEGIN { RS="<item>"; FS="</item>" }
+          NR > 1 && NR <= 6 {
+            item = $1
+            # Extract title by splitting on title tags
+            if (match(item, /<title><!\[CDATA\[/)) {
+              # Handle CDATA case
+              gsub(/.*<title><!\[CDATA\[/, "", item)
+              gsub(/\]\]><\/title>.*/, "", item)
+              title = item
+            } else if (match(item, /<title>/)) {
+              # Handle plain text case
+              gsub(/.*<title>/, "", item)
+              gsub(/<\/title>.*/, "", item)
+              title = item
+            }
+
+            # Reset item for link extraction
+            item = $1
+            if (match(item, /<link>/)) {
+              gsub(/.*<link>/, "", item)
+              gsub(/<\/link>.*/, "", item)
+              link = item
+            }
+
+            # Output if both found
+            if (title && link) {
+              print "- [" title "](" link ")"
+            }
+            title = ""
+            link = ""
+          }
+          ' rss_feed.xml > articles.txt
+
+          # Fallback to hardcoded articles if RSS parsing failed
           if [ ! -f articles.txt ] || [ ! -s articles.txt ]; then
-            echo "Creating fallback articles.txt"
-            echo "- [Why Streaming Plans in Real Time Was Worth the Architecture Overhaul](https://peterlimg.substack.com/p/back-to-building-real-time-streaming)" > articles.txt
+            echo "RSS parsing failed, using fallback articles"
+            echo "- [Building AI-Native FinOps: From Chat Outputs to Actionable Interfaces](https://peterlimg.substack.com/p/building-ai-native-finops-from-chat)" > articles.txt
+            echo "- [Why Streaming Plans in Real Time Was Worth the Architecture Overhaul](https://peterlimg.substack.com/p/back-to-building-real-time-streaming)" >> articles.txt
             echo "- [Making AI Optimization Feel Natural](https://peterlimg.substack.com/p/making-ai-optimization-feel-natural)" >> articles.txt
             echo "- [When You're Too Deep in Code to Write About It](https://peterlimg.substack.com/p/when-youre-too-deep-in-code-to-write)" >> articles.txt
             echo "- [Building Better Cloud Cost Testing: The Fox Tool Story](https://peterlimg.substack.com/p/building-better-cloud-cost-testing)" >> articles.txt
-            echo "- [How I Built an AI-Powered AWS Cost Optimization Engine](https://peterlimg.substack.com/p/how-i-built-an-ai-powered-aws-cost)" >> articles.txt
           fi
-          
+
           echo "=== Final articles.txt content ==="
           cat articles.txt
           echo "=== End final content ==="
