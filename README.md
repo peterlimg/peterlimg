@@ -47,11 +47,11 @@
 #### 📰 Latest on Substack
 
 <!-- SUBSTACK:START -->
+- [Building AI-Native FinOps: From Chat Outputs to Actionable Interfaces](https://peterlimg.substack.com/p/building-ai-native-finops-from-chat)
 - [Why Streaming Plans in Real Time Was Worth the Architecture Overhaul](https://peterlimg.substack.com/p/back-to-building-real-time-streaming)
 - [Making AI Optimization Feel Natural](https://peterlimg.substack.com/p/making-ai-optimization-feel-natural)
 - [When You're Too Deep in Code to Write About It](https://peterlimg.substack.com/p/when-youre-too-deep-in-code-to-write)
 - [Building Better Cloud Cost Testing: The Fox Tool Story](https://peterlimg.substack.com/p/building-better-cloud-cost-testing)
-- [How I Built an AI-Powered AWS Cost Optimization Engine](https://peterlimg.substack.com/p/how-i-built-an-ai-powered-aws-cost)
 <!-- SUBSTACK:END -->
 
 ---
