@@ -8,7 +8,9 @@
       "Bash(gh workflow run:*)",
       "Bash(gh run view:*)",
       "Bash(gh run list:*)",
-      "Bash(git pull:*)"
+      "Bash(git pull:*)",
+      "Bash(gh workflow view:*)",
+      "Bash(chmod:*)"
     ],
     "deny": []
   }
