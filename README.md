@@ -47,11 +47,11 @@
 #### 📰 Latest on Substack
 
 <!-- SUBSTACK:START -->
+- [Building in the Age of AI: Between Convenience and Understanding](https://peterlimg.substack.com/p/building-in-the-age-of-ai-between)
+- [We Built an Autonomous FinOps Agent. The Real Lessons Weren't About Cost.](https://peterlimg.substack.com/p/we-built-an-autonomous-finops-agent)
 - [Building AI-Native FinOps: From Chat Outputs to Actionable Interfaces](https://peterlimg.substack.com/p/building-ai-native-finops-from-chat)
+- [Rethinking Technical Debt: How AI Changed the Way We Maintain Software](https://peterlimg.substack.com/p/rethinking-technical-debt-how-ai)
 - [Why Streaming Plans in Real Time Was Worth the Architecture Overhaul](https://peterlimg.substack.com/p/back-to-building-real-time-streaming)
-- [Making AI Optimization Feel Natural](https://peterlimg.substack.com/p/making-ai-optimization-feel-natural)
-- [When You're Too Deep in Code to Write About It](https://peterlimg.substack.com/p/when-youre-too-deep-in-code-to-write)
-- [Building Better Cloud Cost Testing: The Fox Tool Story](https://peterlimg.substack.com/p/building-better-cloud-cost-testing)
 <!-- SUBSTACK:END -->
 
 ---
