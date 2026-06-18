@@ -57,6 +57,7 @@ What we could rely on was the protocol, careful implementation, enormous test co
 #### Latest on Substack
 
 <!-- SUBSTACK:START -->
+- [The Paradigm Shift in Cloud Financial Operations: Transitioning to Agentic AI](https://substack.com/home/post/p-192380213)
 - [Building in the Age of AI: Between Convenience and Understanding](https://peterlimg.substack.com/p/building-in-the-age-of-ai-between)
 - [We Built an Autonomous FinOps Agent. The Real Lessons Weren't About Cost.](https://peterlimg.substack.com/p/we-built-an-autonomous-finops-agent)
 - [Building AI-Native FinOps: From Chat Outputs to Actionable Interfaces](https://peterlimg.substack.com/p/building-ai-native-finops-from-chat)
