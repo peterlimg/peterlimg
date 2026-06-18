@@ -1,36 +1,46 @@
-# Hi, I’m Peter 👋
+# Hi, I’m Peter
 
-**Former VP of Engineering | Indie Builder | Solopreneur**  
-**Tech Lead / Architect** | **Go (Golang)** | **AWS** | **Docker** | **Kubernetes**  
-**Distributed & Cloud-Native Systems Enthusiast**  
+Former VP of Engineering. Now building an AI FinOps product.
 
-🧑‍💻 14 years building with Go and leading cloud engineering teams  
+I have spent the last 14 years building cloud systems, leading engineering teams, and working mostly in Go, AWS, Kubernetes, and distributed infrastructure.
 
 
 ---
 
-### 🚀 About Me
+### About
 
-- 🛠️ Indie builder and solopreneur, currently focused on building an AI FinOps startup from the ground up
-- Former VP of Engineering, now walking the indie path and building in public
-- Documenting and sharing my journey—writing about the real wins, failures, and lessons learned as I build in public
-- Architecting and leading high-impact engineering teams (10+ years in Golang and cloud-native environments)
-- Deeply passionate about distributed systems, cloud, DevOps, blockchain, and emerging AI tech
+- I am working on AI FinOps: helping teams move from cloud-cost recommendations to changes they can trust.
+- Before this, I was a VP of Engineering and technical lead across cloud-native systems.
+- I helped bring a blockchain infrastructure project to launch after it had been delayed for more than three years.
+- I write about the build as it happens: product decisions, engineering tradeoffs, AI workflows, and lessons from running systems in production.
+- I am most useful around Go, AWS, distributed systems, infrastructure, and engineering leadership.
 
 ---
 
-### 🛠️ Core Skills
+### Distributed Systems Work
+
+Some of my deepest engineering experience came from building blockchain infrastructure from the ground up.
+
+This was not distributed systems in the usual CRUD-service sense: APIs, databases, queues, and scaling knobs. The system had no lead node with special authority. Every node in the network had the same duties, the same rules, and the same chance to participate.
+
+The network worked only when independent machines could follow the protocol, validate state, communicate under unreliable conditions, and still converge on the same outcome. Together, those nodes formed the foundation that more complex business logic could run on.
+
+What we could rely on was the protocol, careful implementation, enormous test coverage, and a lot of long nights debugging timing, state, networking, and consensus issues. Getting that system to launch, and stay alive, was one of the most challenging and fulfilling things I have worked on.
+
+---
+
+### Core Skills
 
 - **Programming:** Go (Golang), C++, Python, React.js
 - **Cloud:** AWS
 - **Containers:** Docker, Kubernetes, Helm
 - **Infra as Code:** Terraform, CloudFormation
-- **Distributed Systems:** Microservices, Event-Driven Architectures, Blockchain
+- **Distributed Systems:** Consensus protocols, blockchain infrastructure, peer-to-peer networks, event-driven systems
 - **DevOps:** CI/CD, GitHub Actions, Observability, Monitoring
 
 ---
 
-### 🌎 Connect with Me
+### Connect
 
 [![LinkedIn](https://img.shields.io/badge/-LinkedIn-blue?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/peterm08/)
 [![Substack](https://img.shields.io/badge/-Substack-orange?logo=substack&logoColor=white)](https://substack.com/@peterlimg)
@@ -39,12 +49,12 @@
 
 ---
 
-### 📚 Latest Writings
+### Latest Writing
 
 - [Substack](https://substack.com/@peterlimg)
 - [Medium](https://medium.com/@luxairlake)
 
-#### 📰 Latest on Substack
+#### Latest on Substack
 
 <!-- SUBSTACK:START -->
 - [Building in the Age of AI: Between Convenience and Understanding](https://peterlimg.substack.com/p/building-in-the-age-of-ai-between)
@@ -56,13 +66,12 @@
 
 ---
 
-### ⚡ Fun Facts
+### Current Focus
 
-- Walking the indie path: building in public, sharing both the wins and pitfalls of solopreneurship
-- Survived and thrived in over a decade of cloud-native engineering wars
-- Forever a student: curious about AI, blockchain, and the future of distributed finance
+- Building the first version of the AI FinOps product.
+- Writing in public while the product takes shape.
+- Talking to teams that care about cloud cost, infrastructure risk, and making recommendations actionable.
 
 ---
 
-> “The best way to predict the future is to architect it.”  
-> — _Peter_
+> The hard part is not finding cloud waste. It is knowing which change is safe to make next.
